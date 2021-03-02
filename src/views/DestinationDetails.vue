@@ -3,6 +3,7 @@
     <!-- Title Area --> 
     <section>
       <TheTitle v-bind:title="destination.name" />
+      <GoBack />
 
       <!-- details of destination - needs more formatting (to make image smaller!) --> 
       <div class="box">
@@ -51,13 +52,15 @@
 
 <script>
 // @ is an alias to /src
-import TheTitle from "@/components/TheTitle.vue";
+import TheTitle from "@/components/TheTitle.vue"
+import GoBack from "@/components/GoBack.vue"
 import store from '@/store.js'
 
 export default {
   name: "Home",
   components: {
-    TheTitle
+    TheTitle,
+    GoBack
   },
   data() {
     return {
