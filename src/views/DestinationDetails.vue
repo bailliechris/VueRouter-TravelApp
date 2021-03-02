@@ -1,22 +1,52 @@
 <template>
-    <div>
-        <TheTitle v-bind:title="destination.name" />
-        <div class="card">
-          <div class="card-header">
-            <div class="card-header-title is-centered">
-                {{destination.name}}
-            </div>
+  <div>
+    <!-- Title Area --> 
+    <section>
+      <TheTitle v-bind:title="destination.name" />
+
+      <!-- details of destination - needs more formatting (to make image smaller!) --> 
+      <div class="box">
+        <div class="columns is-mobile is-multiline">
+          <div class="column is-6">
+            <img :src="require('@/assets/' +destination.image)" :alt="destination.image">
           </div>
-          <div class="card-image">
-            <figure class="image is-4by3">
-                <img :src="require('@/assets/' +destination.image)" :alt="destination.image">
-            </figure>
-          </div>
-          <div class="card-content">
+          <div class="column is-6">
             {{destination.description}}
           </div>
         </div>
-    </div>
+      </div>
+
+      <!-- Experiences for the destinations --> 
+      <div class="container">
+        <h2 class="title">Top experiences in {{ destination.name }} </h2>
+
+        <div class="columns is-multiline is-mobile"> 
+          <div class="column is-3" v-for="experience in destination.experiences" :key="experience.slug">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-header-title is-centered">
+                  <router-link :to="{ name: 'ExperienceDetails', params: { experienceSlug: experience.slug } }">
+                    {{experience.name}}
+                  </router-link> 
+                </div>
+              </div>
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <router-link :to="{ name: 'ExperienceDetails', params: { experienceSlug: experience.slug } }">
+                    <img :src="require('@/assets/' +experience.image)"
+                    :alt="experience.image">
+                  </router-link>
+                </figure>
+              </div>
+            </div>
+          </div>
+        <!-- Force the section above to refresh when a router-link is invoked --> 
+          
+        </div>
+      </div>
+      <router-view :key="$route.path" />
+    </section>
+  </div>
 </template>
 
 <script>
